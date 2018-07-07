@@ -1,0 +1,31 @@
+.quickLinkItem{
+   .mainDiv{
+      margin-top: 10px;
+      font-size: 12px;
+      display: flex;
+      line-height: 17px;
+      padding-left: 5px;
+   }
+   .iconDiv{
+      height: 16px;
+      font-size: 13px;
+      line-height: 13px;
+      margin-top: 1px;    
+      display: inline-block; 
+      padding-right: 5px; 
+   }
+   .contentDiv{
+      padding-top: 0px;
+      padding-right: 4px;
+      padding-bottom: 0px;
+      padding-left: 4px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      display: inline-block;
+   }
+   .contentSpan{
+      display: inline;
+      padding-right: 5px;
+   }
+}

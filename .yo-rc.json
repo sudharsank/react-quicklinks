@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "spo",
+    "version": "1.5.1",
+    "libraryName": "react-quicklinks",
+    "libraryId": "e05a3be0-ad2c-433b-beab-6bd2633536ca",
+    "packageManager": "npm",
+    "componentType": "webpart"
+  }
+}
