@@ -46,16 +46,6 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
       const { isOverlayShow } = this.state;
       return (
          <div className={styles.quickLinks}>
-            {listName && isOverlayShow &&
-               <div style={{ width: '100%', height: '100px' }}>
-                  <Overlay
-                     isDarkThemed={false}>
-                     <div style={{ margin: '0 auto', top: '40%', position: 'relative' }}>
-                        <Spinner size={SpinnerSize.large} label='' />
-                     </div>
-                  </Overlay>
-               </div>
-            }
             <div className={"ms-Grid"}>
                <div className={"ms-Grid-row"}>
                   <div className={"ms-Grid-col ms-sm2 ms-md1 ms-lg1"}>
@@ -80,6 +70,16 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   </div>
                </div>
             </div>
+            {listName && isOverlayShow &&
+               <div style={{ width: '100%', height: '100px' }}>
+                  <Overlay
+                     isDarkThemed={false}>
+                     <div style={{ margin: '0 auto', top: '40%', position: 'relative' }}>
+                        <Spinner size={SpinnerSize.large} label='' />
+                     </div>
+                  </Overlay>
+               </div>
+            }
             {listName && !isOverlayShow &&
                <QuickLinks
                   quickLinksItems={this.state.quickLinkItems}
@@ -116,6 +116,13 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
       }
    }
 
+   public componentDidUpdate(prevProps: IQuickLinksContainerProps): void {
+      console.log(prevProps.listName);
+      if(this.props.listName !== prevProps.listName){
+         this.InitialLoad();
+      }
+   }
+
    private InitialLoad = () => {
       this._getCurrentUserInfo();
       this._checkUserInOwnerGroup();
@@ -128,7 +135,21 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    private _getAllQuickLinks = () => {
       this.quickLinksService.getAllQuickLinks(this.props.listName)
          .then((links: IQuickLink[]) => {
-            console.log('All Quick Links: ', links);
+            //console.log('All Quick Links: ', links);
+            this.setState({
+               quickLinkItems: links,
+               isOverlayShow: false
+            });
+         });
+   }
+
+   /**
+    * 
+    */
+   private _getAllQuickLinksWLN = (listname: string) => {
+      this.quickLinksService.getAllQuickLinks(listname)
+         .then((links: IQuickLink[]) => {
+            //console.log('All Quick Links: ', links);
             this.setState({
                quickLinkItems: links,
                isOverlayShow: false
@@ -200,4 +221,9 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
       });
    }
 
+   // public componentWillReceiveProps(nextProps: IQuickLinksContainerProps): void {
+   //    if(nextProps.listName)  {
+   //       this._getAllQuickLinksWLN(nextProps.listName);
+   //    }
+   // }
 }
