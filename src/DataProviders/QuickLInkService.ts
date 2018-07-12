@@ -100,4 +100,22 @@ export class QuickLinkService implements IQuickLinkService {
 
    }
 
+   /**
+    * To check whether the selected list is of QuickLinks type.
+    * @param listID 
+    */
+   public checkListTypeAsQuickLinks(listID: string): Promise<boolean> {
+      return new Promise<boolean>((resolve: (retResult: boolean) => void, reject: (error: any) => void): void => {
+         sp.web.lists.getById(listID).select("BaseTemplate").get()
+            .then((listDetails: any) => {
+               if (listDetails.BaseTemplate == 103) {
+                  resolve(true);
+               }
+               resolve(false);
+            }, (error: any): void => {
+               console.log(error);
+            });
+      });
+   }
+
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import styles from './MessageContainer.module.scss';
 import { MessageScope } from '../Common/enumHelper';
 import IMessageContainerProps from './IMessageContainerProps';

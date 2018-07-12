@@ -1,12 +1,21 @@
 import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { DisplayMode, ServiceScope, Environment, EnvironmentType } from '@microsoft/sp-core-library';
+import { 
+   DisplayMode,
+   ServiceScope,
+   Environment,
+   EnvironmentType
+} from '@microsoft/sp-core-library';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import {
+   Spinner,
+   SpinnerSize
+} from 'office-ui-fabric-react/lib/Spinner';
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 
 import ConfigContainer from '../ConfigContainer/ConfigContainer';
 import QuickLinks from '../QuickLinks/QuickLinks';
+import MessageContainer from '../MessageContainer/MessageContainer';
 
 import * as strings from 'QuickLinksWebPartStrings';
 import styles from './QuickLinksContainer.module.scss';
@@ -14,22 +23,36 @@ import { IQuickLinksContainerProps } from './IQuickLinksContainerProps';
 import { IQuickLinksContainerState } from './IQuickLinksContainerState';
 /** Service Reference */
 import { IQuickLink, IPerson } from '../../../../Models';
-import { IQuickLinkService, IUserProfileService } from '../../../../Interfaces';
-import { MockQuickLinkService, QuickLinkService, UserProfileService } from '../../../../DataProviders';
-
+import {
+   IQuickLinkService,
+   IUserProfileService
+} from '../../../../Interfaces';
+import {
+   MockQuickLinkService,
+   QuickLinkService,
+   UserProfileService
+} from '../../../../DataProviders';
+import { MessageScope } from '../Common/enumHelper';
 
 export default class QuickLinksContainer extends React.Component<IQuickLinksContainerProps, IQuickLinksContainerState> {
 
    private userProfileService: IUserProfileService;
    private quickLinksService: IQuickLinkService;
 
+   /**
+    * 
+    * @param props 
+    */
    constructor(props: IQuickLinksContainerProps) {
       super(props);
 
       this.state = {
          quickLinkItems: [],
          isAdmin: false,
-         isOverlayShow: true
+         isOverlayShow: true,
+         error: false,
+         msgScope: null,
+         message: ""
       };
 
       let _serviceScope: ServiceScope;
@@ -41,9 +64,12 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
       });
    }
 
+   /**
+    * 
+    */
    public render(): React.ReactElement<IQuickLinksContainerProps> {
       const { displayMode, listName, inlineEdit, title, updateProperty } = this.props;
-      const { isOverlayShow } = this.state;
+      const { isOverlayShow, error, msgScope, message } = this.state;
       return (
          <div className={styles.quickLinks}>
             <div className={"ms-Grid"}>
@@ -80,7 +106,10 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   </Overlay>
                </div>
             }
-            {listName && !isOverlayShow &&
+            {error &&
+               <MessageContainer MessageScope={msgScope} Message={message} />
+            }
+            {listName && !isOverlayShow && !error &&
                <QuickLinks
                   quickLinksItems={this.state.quickLinkItems}
                   onAddQuickLinkItem={this._addQuickLink}
@@ -110,23 +139,60 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
       );
    }
 
+   /**
+    * 
+    */
    public componentDidMount(): void {
       if (this.props.listName) {
          this.InitialLoad();
       }
    }
 
+   /**
+    * 
+    * @param prevProps 
+    */
    public componentDidUpdate(prevProps: IQuickLinksContainerProps): void {
-      console.log(prevProps.listName);
-      if(this.props.listName !== prevProps.listName){
+      if (this.props.listName !== prevProps.listName) {
          this.InitialLoad();
       }
    }
 
+   /**
+    * 
+    */
    private InitialLoad = () => {
-      this._getCurrentUserInfo();
-      this._checkUserInOwnerGroup();
-      this._getAllQuickLinks();
+      this._checkListType().then((res: boolean) => {
+         if (res) {
+            this.setState({
+               error: false,
+               msgScope: null,
+               message: ""
+            });
+            this._getCurrentUserInfo();
+            this._checkUserInOwnerGroup();
+            this._getAllQuickLinks();
+         }
+         else {
+            this.setState({
+               error: true,
+               msgScope: MessageScope.Success,
+               message: strings.MSG_InvalidListType
+            });
+         }
+      });
+   }
+
+   /**
+    * 
+    */
+   private _checkListType(): Promise<boolean> {
+      return new Promise<boolean>((resolve: (res: boolean) => void, reject: (error: any) => void): void => {
+         this.quickLinksService.checkListTypeAsQuickLinks(this.props.listName)
+            .then((res: boolean) => {
+               resolve(res);
+            });
+      });
    }
 
    /**
@@ -146,24 +212,9 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    /**
     * 
     */
-   private _getAllQuickLinksWLN = (listname: string) => {
-      this.quickLinksService.getAllQuickLinks(listname)
-         .then((links: IQuickLink[]) => {
-            //console.log('All Quick Links: ', links);
-            this.setState({
-               quickLinkItems: links,
-               isOverlayShow: false
-            });
-         });
-   }
-
-   /**
-    * 
-    */
    private _checkUserInOwnerGroup = () => {
       this.userProfileService.checkUserPresentInGroup('', true)
          .then((res: boolean) => {
-            console.log(`Is Admin: `, res);
             if (res) {
                this.setState({
                   isAdmin: res
@@ -178,7 +229,6 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    private _getCurrentUserInfo = () => {
       this.userProfileService.getPropertiesForCurrentUser()
          .then((userInfo: IPerson) => {
-            console.log(`Current User Info: `, userInfo);
             this.setState({
                userDetails: userInfo
             });
@@ -220,10 +270,4 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
             });
       });
    }
-
-   // public componentWillReceiveProps(nextProps: IQuickLinksContainerProps): void {
-   //    if(nextProps.listName)  {
-   //       this._getAllQuickLinksWLN(nextProps.listName);
-   //    }
-   // }
 }

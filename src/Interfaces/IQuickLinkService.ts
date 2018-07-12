@@ -9,4 +9,6 @@ export interface IQuickLinkService {
    updateQuickLink(listName: string, quickLinkItem: IQuickLink): Promise<boolean>;
 
    getQuickLink(listName: string, quickLinkID: string): Promise<IQuickLink>;
+
+   checkListTypeAsQuickLinks(listID: string): Promise<boolean>;
 }

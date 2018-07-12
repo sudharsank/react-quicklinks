@@ -12,6 +12,9 @@ define([], function() {
     "Configure_ButtonText": "Configure",
     "Configure_EditDescription": "Configure the web part properties",
     "Configure_PreviewDescription": "Please edit the page to configure the web part properties",
-    "Configure_IconText": "Quick Links Configuration"
+    "Configure_IconText": "Quick Links Configuration",
+
+    // Messages
+    "MSG_InvalidListType": "The selected list is not of type 'Links'"
   }
 });

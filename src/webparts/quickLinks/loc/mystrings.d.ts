@@ -10,6 +10,8 @@ declare interface IQuickLinksWebPartStrings {
   Configure_EditDescription: string;
   Configure_PreviewDescription: string;
   Configure_IconText: string;
+  // Messages
+  MSG_InvalidListType: string;
 }
 
 declare module 'QuickLinksWebPartStrings' {

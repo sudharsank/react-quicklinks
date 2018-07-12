@@ -45,4 +45,10 @@ export class MockQuickLinkService implements IQuickLinkService {
             resolve(true);
         });
     }
+
+    public checkListTypeAsQuickLinks(listID: string): Promise<boolean> {
+      return new Promise<boolean>((resolve: (retResult: boolean) => void, reject: (errors: any) => void): void => {         
+         resolve(true);
+     });
+    }
 }
