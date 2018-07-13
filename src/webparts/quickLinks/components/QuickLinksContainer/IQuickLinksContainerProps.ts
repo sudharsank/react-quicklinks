@@ -30,4 +30,8 @@ export interface IQuickLinksContainerProps {
    * Event handler after updating the web part title
    */
   updateProperty: (value: string) => void;
+  /**
+   * Quick links display type
+   */
+  displayType: string;
 }

@@ -8,4 +8,5 @@ export interface IQuickLinksProps {
    onGetQuickLink: (quickLinkID: string) => Promise<IQuickLink>;
    isAdmin?: boolean;
    inlineEdit: boolean;
+   displayType: string;
 }

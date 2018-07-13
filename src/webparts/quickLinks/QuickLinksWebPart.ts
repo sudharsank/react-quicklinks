@@ -12,6 +12,7 @@ import { sp } from '@pnp/sp';
 import { PropertyFieldListPicker, PropertyFieldListPickerOrderBy } from '@pnp/spfx-property-controls/lib/PropertyFieldListPicker';
 import { CalloutTriggers } from '@pnp/spfx-property-controls/lib/PropertyFieldHeader';
 import { PropertyFieldToggleWithCallout } from '@pnp/spfx-property-controls/lib/PropertyFieldToggleWithCallout';
+import { PropertyFieldChoiceGroupWithCallout } from '@pnp/spfx-property-controls/lib/PropertyFieldChoiceGroupWithCallout';
 
 import * as strings from 'QuickLinksWebPartStrings';
 import QuickLinksContainer from './components/QuickLinksContainer/QuickLinksContainer';
@@ -21,6 +22,7 @@ export interface IQuickLinksWebPartProps {
    title: string;
    listName: string;
    inlineEdit: boolean;
+   displayType: string;
 }
 
 export default class QuickLinksWebPart extends BaseClientSideWebPart<IQuickLinksWebPartProps> {
@@ -46,6 +48,7 @@ export default class QuickLinksWebPart extends BaseClientSideWebPart<IQuickLinks
             updateProperty: (value: string) => {
                this.properties.title = value;
             },
+            displayType: this.properties.displayType
          }
       );
 
@@ -96,8 +99,23 @@ export default class QuickLinksWebPart extends BaseClientSideWebPart<IQuickLinks
                            deferredValidationTime: 200,
                            multiSelect: false,
                            key: 'listNameFieldId'
-                        }),
-                        PropertyFieldToggleWithCallout('inlineEdit', {
+                        }),                        
+                        PropertyFieldChoiceGroupWithCallout('displayType', {
+                           calloutContent: React.createElement('div', {}, strings.DisplayTypeCalloutContent),
+                           calloutTrigger: CalloutTriggers.Hover,
+                           key: 'displayTypeFieldId',
+                           label: strings.DisplayTypeFieldLabel,
+                           options: [{
+                             key: 'list',
+                             text: 'List',
+                             checked: this.properties.displayType === 'list',                             
+                           }, {
+                             key: 'details',
+                             text: 'Detail List',
+                             checked: this.properties.displayType === 'details'
+                           }]
+                         }),
+                         PropertyFieldToggleWithCallout('inlineEdit', {
                            calloutTrigger: CalloutTriggers.Hover,
                            key: 'inlineEditFieldId',
                            label: strings.InlineEditFieldLabel,

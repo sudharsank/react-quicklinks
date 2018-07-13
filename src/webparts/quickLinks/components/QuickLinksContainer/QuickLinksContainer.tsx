@@ -68,8 +68,8 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
     * 
     */
    public render(): React.ReactElement<IQuickLinksContainerProps> {
-      const { displayMode, listName, inlineEdit, title, updateProperty } = this.props;
-      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state;
+      const { displayMode, listName, inlineEdit, title, updateProperty, displayType } = this.props;
+      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state;      
       return (
          <div className={styles.quickLinks}>
             <div className={"ms-Grid"}>
@@ -96,7 +96,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   </div>
                </div>
             </div>
-            {listName && isOverlayShow &&
+            {listName && displayType && isOverlayShow &&
                <div style={{ width: '100%', height: '100px' }}>
                   <Overlay
                      isDarkThemed={false}>
@@ -111,13 +111,14 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
             }
             {listName && !isOverlayShow && !error &&
                <QuickLinks
-                  quickLinksItems={this.state.quickLinkItems}
+                  quickLinksItems={quickLinkItems}
                   onAddQuickLinkItem={this._addQuickLink}
                   onGetAllQuickLinks={this._getAllQuickLinks}
                   onGetQuickLink={this._getQuickLinkItem}
                   onUpdateQuickLinkItem={this._updateQuickLink}
-                  isAdmin={this.state.isAdmin}
-                  inlineEdit={inlineEdit} />
+                  isAdmin={isAdmin}
+                  inlineEdit={inlineEdit}
+                  displayType={displayType} />
             }
             {!listName && displayMode === DisplayMode.Edit &&
                <ConfigContainer
@@ -153,7 +154,8 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
     * @param prevProps 
     */
    public componentDidUpdate(prevProps: IQuickLinksContainerProps): void {
-      if (this.props.listName !== prevProps.listName) {
+      if (this.props.listName !== prevProps.listName ||
+         this.props.displayType !== prevProps.displayType) {
          this.InitialLoad();
       }
    }

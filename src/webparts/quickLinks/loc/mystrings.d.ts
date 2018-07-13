@@ -5,6 +5,8 @@ declare interface IQuickLinksWebPartStrings {
   ListNameFieldLabel: string;
   InlineEditFieldLabel: string;
   InlineEditCalloutContent: string;
+  DisplayTypeFieldLabel: string;
+  DisplayTypeCalloutContent: string;
   // Configuration Container
   Configure_ButtonText: string;
   Configure_EditDescription: string;

@@ -7,6 +7,8 @@ define([], function() {
     "ListNameFieldLabel": "Select the list to display Quick Links",
     "InlineEditFieldLabel": "Allow inline editing",
     "InlineEditCalloutContent": "Allowing inline editing will make the administrators to edit the 'Quick Links' directly from web part. If the inline edit is set to 'No', the links can be modified only via SharePoint List.",
+    "DisplayTypeFieldLabel": "Display Type",
+    "DisplayTypeCalloutContent": "Select preferrable display type",
 
     // Configuration Container
     "Configure_ButtonText": "Configure",

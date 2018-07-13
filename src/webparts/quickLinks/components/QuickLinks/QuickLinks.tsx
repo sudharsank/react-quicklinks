@@ -9,6 +9,7 @@ import { IQuickLinksState } from './IQuickLinksState';
 import { IQuickLink } from '../../../../Models';
 /** List of Custom Components */
 import QuickLinksList from '../QuickLinksList/QuickLinksList';
+import QuickLinksDetailsList from '../QuickLinksDetailsList/QuickLinksDetailsList';
 import QuickLinkAdd from '../QuickLinkAddLink/QuickLinkAddLink';
 import QuickLinkManageForm from '../QuickLinkManageForm/QuickLinkManageForm';
 
@@ -29,14 +30,23 @@ export default class QuickLinks extends React.Component<IQuickLinksProps, IQuick
 
    public render(): JSX.Element {
       const { showPanel, isOverlayShow, quickLinkItem, isError, isSaved } = this.state;
-      const { quickLinksItems, inlineEdit, isAdmin } = this.props;
+      const { quickLinksItems, inlineEdit, isAdmin, displayType } = this.props;
       return (
          <div className={styles.quickLinks}>
-            <QuickLinksList
-               quickLinksItems={quickLinksItems}
-               isAdmin={isAdmin}
-               getQuickLinkItem={this._getQuickLinkItem}
-               inlineEdit={inlineEdit} />
+            {displayType === "list" &&
+               <QuickLinksList
+                  quickLinksItems={quickLinksItems}
+                  isAdmin={isAdmin}
+                  getQuickLinkItem={this._getQuickLinkItem}
+                  inlineEdit={inlineEdit} />
+            }
+            {displayType === "details" && 
+               <QuickLinksDetailsList
+                  quickLinksItems={quickLinksItems}
+                  isAdmin={isAdmin}
+                  getQuickLinkItem={this._getQuickLinkItem}
+                  inlineEdit={inlineEdit} />
+            }            
             {inlineEdit &&
                <QuickLinkAdd
                   isAdmin={isAdmin}
