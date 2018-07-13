@@ -13,19 +13,19 @@ export default class MessageContainer extends React.Component<IMessageContainerP
             <div className={styles.MessageContainer}>
                 {
                     this.props.MessageScope === MessageScope.Success &&
-                    <span className={styles.successMessage}>{this.props.Message}</span>
+                    <MessageBar messageBarType={MessageBarType.success}>{this.props.Message}</MessageBar>
                 }
                 {
                     this.props.MessageScope === MessageScope.Failure &&
-                    <span className={styles.errorMessage}>{this.props.Message}</span>
+                    <MessageBar messageBarType={MessageBarType.error}>{this.props.Message}</MessageBar>
                 }
                 {
                     this.props.MessageScope === MessageScope.Warning &&
-                    <span className={styles.warningMessage}>{this.props.Message}</span>
+                    <MessageBar messageBarType={MessageBarType.warning}>{this.props.Message}</MessageBar>
                 }
                 {
                     this.props.MessageScope === MessageScope.Info &&
-                    <span className={styles.infoMessage}>{this.props.Message}</span>
+                    <MessageBar className={styles.infoMessage}>{this.props.Message}</MessageBar>
                 }
             </div>
         );

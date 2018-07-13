@@ -69,7 +69,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
     */
    public render(): React.ReactElement<IQuickLinksContainerProps> {
       const { displayMode, listName, inlineEdit, title, updateProperty } = this.props;
-      const { isOverlayShow, error, msgScope, message } = this.state;
+      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state;
       return (
          <div className={styles.quickLinks}>
             <div className={"ms-Grid"}>
@@ -176,8 +176,9 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
          else {
             this.setState({
                error: true,
-               msgScope: MessageScope.Success,
-               message: strings.MSG_InvalidListType
+               msgScope: MessageScope.Failure,
+               message: strings.MSG_InvalidListType,
+               isOverlayShow: false
             });
          }
       });
@@ -201,11 +202,21 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    private _getAllQuickLinks = () => {
       this.quickLinksService.getAllQuickLinks(this.props.listName)
          .then((links: IQuickLink[]) => {
-            //console.log('All Quick Links: ', links);
-            this.setState({
-               quickLinkItems: links,
-               isOverlayShow: false
-            });
+            if(links.length > 0){
+               this.setState({
+                  quickLinkItems: links,
+                  isOverlayShow: false
+               });
+            }
+            else {
+               this.setState({
+                  quickLinkItems: links,
+                  error: true,
+                  msgScope: MessageScope.Info,
+                  message: strings.MSG_NoData,
+                  isOverlayShow: false
+               });
+            }
          });
    }
 

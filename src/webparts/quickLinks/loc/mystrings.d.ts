@@ -12,6 +12,7 @@ declare interface IQuickLinksWebPartStrings {
   Configure_IconText: string;
   // Messages
   MSG_InvalidListType: string;
+  MSG_NoData: string;
 }
 
 declare module 'QuickLinksWebPartStrings' {

@@ -29,17 +29,17 @@ export default class QuickLinks extends React.Component<IQuickLinksProps, IQuick
 
    public render(): JSX.Element {
       const { showPanel, isOverlayShow, quickLinkItem, isError, isSaved } = this.state;
-      const { quickLinksItems, inlineEdit } = this.props;
+      const { quickLinksItems, inlineEdit, isAdmin } = this.props;
       return (
          <div className={styles.quickLinks}>
             <QuickLinksList
                quickLinksItems={quickLinksItems}
-               isAdmin={this.props.isAdmin}
+               isAdmin={isAdmin}
                getQuickLinkItem={this._getQuickLinkItem}
                inlineEdit={inlineEdit} />
             {inlineEdit &&
                <QuickLinkAdd
-                  isAdmin={this.props.isAdmin}
+                  isAdmin={isAdmin}
                   onShowManageScreen={this._onShowManageScreen} />
             }
             <div>
@@ -182,12 +182,14 @@ export default class QuickLinks extends React.Component<IQuickLinksProps, IQuick
    }
 
    private _getQuickLinkItem = (quickLinkID: string): void => {
+      this._onShowManageScreenForEdit();
+      this.setState({ isOverlayShow: true });
       this.props.onGetQuickLink(quickLinkID)
          .then((quickLinkItem: IQuickLink) => {
             this.setState({
                quickLinkItem: quickLinkItem,
-            });
-            this._onShowManageScreenForEdit();
+               isOverlayShow: false
+            });            
          });
    }
 

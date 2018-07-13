@@ -15,6 +15,7 @@ define([], function() {
     "Configure_IconText": "Quick Links Configuration",
 
     // Messages
-    "MSG_InvalidListType": "The selected list is not of type 'Links'"
+    "MSG_InvalidListType": "The selected list is not of type 'Links'",
+    "MSG_NoData":          "Sorry, no data found!"
   }
 });
