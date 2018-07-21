@@ -1,10 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "react-quicklinks-client-side-solution",
+    "name": "SPFx - QuickLinks",
     "id": "e05a3be0-ad2c-433b-beab-6bd2633536ca",
     "version": "1.0.0.0",
-    "includeClientSideAssets": true
+    "includeClientSideAssets": false
   },
   "paths": {
     "zippedPackage": "solution/react-quicklinks.sppkg"
