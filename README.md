@@ -3,7 +3,7 @@
 ## Summary
 The `Quick Links` web part will display all the links configured from the list.
 
-![react-documentlist-gif](./assets/Preview.gif)
+
 
 ## Used SharePoint Framework Version 
 ![drop](https://img.shields.io/badge/version-GA-green.svg)
