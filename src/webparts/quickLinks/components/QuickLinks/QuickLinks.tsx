@@ -45,9 +45,10 @@ export default class QuickLinks extends React.Component<IQuickLinksProps, IQuick
                   quickLinksItems={quickLinksItems}
                   isAdmin={isAdmin}
                   getQuickLinkItem={this._getQuickLinkItem}
-                  inlineEdit={inlineEdit} />
+                  inlineEdit={inlineEdit}
+                  onShowManageScreen={this._onShowManageScreen} />
             }            
-            {inlineEdit &&
+            {inlineEdit && displayType === "list" &&
                <QuickLinkAdd
                   isAdmin={isAdmin}
                   onShowManageScreen={this._onShowManageScreen} />

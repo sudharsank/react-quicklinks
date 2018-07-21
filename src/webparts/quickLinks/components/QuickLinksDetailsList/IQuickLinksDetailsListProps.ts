@@ -4,4 +4,5 @@ export interface IQuickLinksDetailsListProps {
    isAdmin: boolean;
    getQuickLinkItem: (quickLinkID: string) => void;
    inlineEdit: boolean;
+   onShowManageScreen: () => void;
 }

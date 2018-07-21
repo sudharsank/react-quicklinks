@@ -69,7 +69,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
     */
    public render(): React.ReactElement<IQuickLinksContainerProps> {
       const { displayMode, listName, inlineEdit, title, updateProperty, displayType } = this.props;
-      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state;      
+      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state; 
       return (
          <div className={styles.quickLinks}>
             <div className={"ms-Grid"}>
@@ -96,7 +96,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   </div>
                </div>
             </div>
-            {listName && displayType && isOverlayShow &&
+            {listName && displayType !== undefined && isOverlayShow &&
                <div style={{ width: '100%', height: '100px' }}>
                   <Overlay
                      isDarkThemed={false}>
@@ -109,7 +109,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
             {error &&
                <MessageContainer MessageScope={msgScope} Message={message} />
             }
-            {listName && !isOverlayShow && !error &&
+            {listName && !isOverlayShow && !error && displayType !== undefined &&
                <QuickLinks
                   quickLinksItems={quickLinkItems}
                   onAddQuickLinkItem={this._addQuickLink}
@@ -120,7 +120,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   inlineEdit={inlineEdit}
                   displayType={displayType} />
             }
-            {!listName && displayMode === DisplayMode.Edit &&
+            {displayMode === DisplayMode.Edit && (!listName || !displayType) &&
                <ConfigContainer
                   buttonText={strings.Configure_ButtonText}
                   currentContext={this.props.currentContext}
