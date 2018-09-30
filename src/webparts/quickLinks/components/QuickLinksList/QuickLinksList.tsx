@@ -5,7 +5,7 @@ import { IQuickLink } from '../../../../Models';
 import QuickLinkItem from '../QuickLinkItem/QuickLinkItem';
 
 export default class QuickLinksList extends React.Component<IQuickLinksListProps, {}>{
-   
+
    constructor(props: IQuickLinksListProps){
       super(props);
    }
@@ -21,7 +21,8 @@ export default class QuickLinksList extends React.Component<IQuickLinksListProps
                         quickLink={item}
                         isAdmin={this.props.isAdmin}
                         onGetQuickLinkItem={this.props.getQuickLinkItem}
-                        inlineEdit={this.props.inlineEdit} />
+                        inlineEdit={this.props.inlineEdit}
+                        fontSize={this.props.fontSize} />
                   );
                })
             }

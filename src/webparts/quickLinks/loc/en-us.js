@@ -1,7 +1,7 @@
 define([], function() {
   return {
     "PropertyPaneDescription": "",
-    "BasicGroupName": "Settings",
+    "GeneralSettingsGroupName": "General Settings",
 
     // Property Pane
     "ListNameFieldLabel": "Select the list to display Quick Links",
@@ -9,6 +9,8 @@ define([], function() {
     "InlineEditCalloutContent": "Allowing inline editing will make the administrators to edit the 'Quick Links' directly from web part. If the inline edit is set to 'No', the links can be modified only via SharePoint List.",
     "DisplayTypeFieldLabel": "Display Type",
     "DisplayTypeCalloutContent": "Select preferrable display type",
+    "FontSizeFieldLabel": "Text Size",
+    "FontSizeCalloutContent": "Select the size of the text in px",
 
     // Configuration Container
     "Configure_ButtonText": "Configure",

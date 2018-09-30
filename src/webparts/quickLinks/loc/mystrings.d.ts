@@ -1,12 +1,14 @@
 declare interface IQuickLinksWebPartStrings {
   PropertyPaneDescription: string;
-  BasicGroupName: string;
+  GeneralSettingsGroupName: string;
   // Property Pane Configuration
   ListNameFieldLabel: string;
   InlineEditFieldLabel: string;
   InlineEditCalloutContent: string;
   DisplayTypeFieldLabel: string;
   DisplayTypeCalloutContent: string;
+  FontSizeFieldLabel: string;
+  FontSizeCalloutContent: string;
   // Configuration Container
   Configure_ButtonText: string;
   Configure_EditDescription: string;

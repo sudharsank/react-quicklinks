@@ -34,4 +34,8 @@ export interface IQuickLinksContainerProps {
    * Quick links display type
    */
   displayType: string;
+  /**
+   * Quick links text size
+   */
+  fontSize: string;
 }

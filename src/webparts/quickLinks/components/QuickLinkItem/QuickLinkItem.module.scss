@@ -10,9 +10,9 @@
       height: 16px;
       font-size: 13px;
       line-height: 13px;
-      margin-top: 1px;    
-      display: inline-block; 
-      padding-right: 5px; 
+      margin-top: 1px;
+      display: inline-block;
+      padding-right: 5px;
    }
    .contentDiv{
       padding-top: 0px;
@@ -23,9 +23,13 @@
       text-overflow: ellipsis;
       overflow-x: hidden;
       display: inline-block;
+      width: 100%;
    }
    .contentSpan{
-      display: inline;
       padding-right: 5px;
+      width: 85%;
+      text-overflow: ellipsis;
+      display: inline-block;
+      overflow: hidden;
    }
 }

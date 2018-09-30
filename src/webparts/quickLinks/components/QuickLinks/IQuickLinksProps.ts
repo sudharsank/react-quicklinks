@@ -1,6 +1,6 @@
 import {IQuickLink} from '../../../../Models';
 export interface IQuickLinksProps {
-   quickLinksItems: IQuickLink[];    
+   quickLinksItems: IQuickLink[];
    quickLinkItem?: IQuickLink;
    onAddQuickLinkItem(quickLinkItem: IQuickLink): Promise<boolean>;
    onUpdateQuickLinkItem(quickLinkItem: IQuickLink): Promise<boolean>;
@@ -9,4 +9,5 @@ export interface IQuickLinksProps {
    isAdmin?: boolean;
    inlineEdit: boolean;
    displayType: string;
+   fontSize: string;
 }

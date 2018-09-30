@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { 
+import {
    DisplayMode,
    ServiceScope,
    Environment,
@@ -40,8 +40,8 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    private quickLinksService: IQuickLinkService;
 
    /**
-    * 
-    * @param props 
+    *
+    * @param props
     */
    constructor(props: IQuickLinksContainerProps) {
       super(props);
@@ -65,11 +65,11 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    public render(): React.ReactElement<IQuickLinksContainerProps> {
-      const { displayMode, listName, inlineEdit, title, updateProperty, displayType } = this.props;
-      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state; 
+      const { displayMode, listName, inlineEdit, title, updateProperty, displayType, fontSize } = this.props;
+      const { isOverlayShow, error, msgScope, message, quickLinkItems, isAdmin } = this.state;
       return (
          <div className={styles.quickLinks}>
             <div className={"ms-Grid"}>
@@ -118,7 +118,8 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
                   onUpdateQuickLinkItem={this._updateQuickLink}
                   isAdmin={isAdmin}
                   inlineEdit={inlineEdit}
-                  displayType={displayType} />
+                  displayType={displayType}
+                  fontSize={fontSize} />
             }
             {displayMode === DisplayMode.Edit && (!listName || !displayType) &&
                <ConfigContainer
@@ -141,7 +142,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    public componentDidMount(): void {
       if (this.props.listName) {
@@ -150,18 +151,19 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
-    * @param prevProps 
+    *
+    * @param prevProps
     */
    public componentDidUpdate(prevProps: IQuickLinksContainerProps): void {
       if (this.props.listName !== prevProps.listName ||
-         this.props.displayType !== prevProps.displayType) {
+         this.props.displayType !== prevProps.displayType ||
+         this.props.fontSize !== prevProps.fontSize) {
          this.InitialLoad();
       }
    }
 
    /**
-    * 
+    *
     */
    private InitialLoad = () => {
       this._checkListType().then((res: boolean) => {
@@ -187,7 +189,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _checkListType(): Promise<boolean> {
       return new Promise<boolean>((resolve: (res: boolean) => void, reject: (error: any) => void): void => {
@@ -199,7 +201,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _getAllQuickLinks = () => {
       this.quickLinksService.getAllQuickLinks(this.props.listName)
@@ -223,7 +225,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _checkUserInOwnerGroup = () => {
       this.userProfileService.checkUserPresentInGroup('', true)
@@ -237,7 +239,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _getCurrentUserInfo = () => {
       this.userProfileService.getPropertiesForCurrentUser()
@@ -249,7 +251,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _addQuickLink = (quickLinkItem: IQuickLink): Promise<boolean> => {
       return new Promise<boolean>((resolve: (result: boolean) => void, reject: (errors: any) => void): void => {
@@ -261,7 +263,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _updateQuickLink = (quickLinkItem: IQuickLink): Promise<boolean> => {
       return new Promise<boolean>((resolve: (result: boolean) => void, reject: (errors: any) => void): void => {
@@ -273,7 +275,7 @@ export default class QuickLinksContainer extends React.Component<IQuickLinksCont
    }
 
    /**
-    * 
+    *
     */
    private _getQuickLinkItem = (quickLinkID: string): Promise<IQuickLink> => {
       return new Promise<IQuickLink>((resolve: (result: IQuickLink) => void, reject: (errors: any) => void): void => {

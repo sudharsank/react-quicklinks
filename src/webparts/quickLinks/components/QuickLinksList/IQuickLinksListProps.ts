@@ -4,4 +4,5 @@ export interface IQuickLinksListProps {
    isAdmin: boolean;
    getQuickLinkItem: (quickLinkID: string) => void;
    inlineEdit: boolean;
+   fontSize: string;
 }

@@ -4,4 +4,5 @@ export interface IQuickLinkItemProps {
    isAdmin?: boolean;
    onGetQuickLinkItem: (quickLinkID: string) => void;
    inlineEdit: boolean;
+   fontSize: string;
 }
